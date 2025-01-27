@@ -16,25 +16,32 @@ function App() {
     number: "",
   };
 
-  const [showContacts, setShowContacts] = useState(baseContacts);
+  const [showContacts, setShowContacts] = useState(() => JSON.parse(localStorage.getItem('contacts')) ?? baseContacts);
   const [addedContacts, setAddedContacts] = useState([]);
   const [search, setSearch] = useState('');
 
   function handleSubmit(values, actions) {
-    console.log(values);
     const newObj = {
       ...values,
       id: crypto.randomUUID(),
     };
 
-    // Добавляем новый контакт в addedContacts и сразу обновляем showContacts
     setAddedContacts((prev) => {
       const updatedContacts = [...prev, newObj];
-      setShowContacts((prevShowContacts) => [...prevShowContacts, newObj]);  // Обновляем showContacts с новым контактом
+      setShowContacts((prevShowContacts) => {
+        localStorage.setItem('contacts', JSON.stringify([...prevShowContacts, newObj]));
+        return [...prevShowContacts, newObj];
+      }); 
+
       return updatedContacts;
-    });
+    });    
 
     actions.resetForm();
+  }
+
+  function onDelete(id) {
+    const newData = showContacts.filter(item => item.id !== id);
+    setShowContacts(newData);
   }
 
   function onSearch(e) {
@@ -48,14 +55,14 @@ function App() {
     } else {
       setShowContacts(allContacts.filter(item => item.name.toLowerCase().includes(search.toLowerCase())));
     }
-  }, [search, addedContacts]);  // Добавлено addedContacts в зависимости, чтобы следить за изменениями в addedContacts
+  }, [search, addedContacts]);  
 
   return (
     <div>
       <h1>Phonebook</h1>
       <ContactForm initialValues={initialValues} handleSubmit={handleSubmit} />
       <SearchBox onSearch={onSearch} />
-      <ContactList baseContacts={showContacts} />
+      <ContactList baseContacts={showContacts} onDelete={ onDelete} />
     </div>
   );
 }
