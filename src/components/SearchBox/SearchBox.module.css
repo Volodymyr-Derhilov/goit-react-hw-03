@@ -1,0 +1,18 @@
+.span {
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 30px;
+}
+
+.input {
+  width: 300px;
+  height: 30px;
+  border: 2px solid #767676;
+  border-radius: 4px;
+}

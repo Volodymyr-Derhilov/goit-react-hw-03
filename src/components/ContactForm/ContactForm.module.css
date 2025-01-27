@@ -1,0 +1,51 @@
+.form {
+  margin-bottom: 30px;
+  max-width: 300px;
+  padding: 20px 15px;
+  border: 2px solid black;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.label__block {
+  display: flex;
+  flex-direction: column;
+}
+
+.block {
+  margin-bottom: 20px;
+}
+
+.submit {
+  margin: 0 auto;
+  width: 130px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 2px solid #767676;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 16px;
+}
+
+.span {
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14px;
+}
+.input {
+  height: 30px;
+  padding: 5px;
+  border: 2px solid #767676; /* Добавление бордера для инпута */
+  border-radius: 4px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14px;
+}
+
+.input::placeholder {
+  font-family: "Inter Tight", sans-serif;
+  color: #888;
+  font-size: 14px;
+}

@@ -1,0 +1,42 @@
+.icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  font-family: "Inter Tight", sans-serif;
+  font-size: 16px;
+}
+
+.buttonDelete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 60px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 16px;
+  border: 1px solid #767676;
+  border-radius: 5px;
+}
