@@ -16,8 +16,11 @@ function App() {
     number: "",
   };
 
-  const [showContacts, setShowContacts] = useState(() => JSON.parse(localStorage.getItem('contacts')) ?? baseContacts);
-  const [addedContacts, setAddedContacts] = useState([]);
+  const [showContacts, setShowContacts] = useState(() => {
+    const saved = localStorage.getItem('contacts');
+    return JSON.parse(saved).length > 0 ? JSON.parse(saved) : baseContacts;
+  });
+
   const [search, setSearch] = useState('');
 
   function handleSubmit(values, actions) {
@@ -25,44 +28,45 @@ function App() {
       ...values,
       id: crypto.randomUUID(),
     };
-
-    setAddedContacts((prev) => {
+    
+    setShowContacts((prev) => {
       const updatedContacts = [...prev, newObj];
-      setShowContacts((prevShowContacts) => {
-        localStorage.setItem('contacts', JSON.stringify([...prevShowContacts, newObj]));
-        return [...prevShowContacts, newObj];
-      }); 
-
+      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
       return updatedContacts;
-    });    
+    })
 
     actions.resetForm();
   }
 
   function onDelete(id) {
-    const newData = showContacts.filter(item => item.id !== id);
-    setShowContacts(newData);
+    setShowContacts((prev => {
+      const updatedContacts = prev.filter(item => item.id !== id);
+      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+      return updatedContacts;
+    }));
   }
 
   function onSearch(e) {
     setSearch(e.target.value);
   }
 
-  useEffect(() => {
+  const filteredContacts = showContacts.filter(contact => contact.name.toLowerCase().includes(search.toLowerCase()));
+
+  /*useEffect(() => {
     const allContacts = [...baseContacts, ...addedContacts];
     if (search.trim() === '') {
       setShowContacts(allContacts);
     } else {
       setShowContacts(allContacts.filter(item => item.name.toLowerCase().includes(search.toLowerCase())));
     }
-  }, [search, addedContacts]);  
+  }, [search, addedContacts]);*/  
 
   return (
     <div>
       <h1>Phonebook</h1>
       <ContactForm initialValues={initialValues} handleSubmit={handleSubmit} />
       <SearchBox onSearch={onSearch} />
-      <ContactList baseContacts={showContacts} onDelete={ onDelete} />
+      <ContactList baseContacts={filteredContacts} onDelete={ onDelete} />
     </div>
   );
 }
