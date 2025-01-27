@@ -18,7 +18,7 @@ function App() {
 
   const [showContacts, setShowContacts] = useState(() => {
     const saved = localStorage.getItem('contacts');
-    return JSON.parse(saved).length > 0 ? JSON.parse(saved) : baseContacts;
+    return saved ? JSON.parse(saved) : baseContacts;
   });
 
   const [search, setSearch] = useState('');
