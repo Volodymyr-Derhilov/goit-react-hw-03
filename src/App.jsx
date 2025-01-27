@@ -50,16 +50,7 @@ function App() {
     setSearch(e.target.value);
   }
 
-  const filteredContacts = showContacts.filter(contact => contact.name.toLowerCase().includes(search.toLowerCase()));
-
-  /*useEffect(() => {
-    const allContacts = [...baseContacts, ...addedContacts];
-    if (search.trim() === '') {
-      setShowContacts(allContacts);
-    } else {
-      setShowContacts(allContacts.filter(item => item.name.toLowerCase().includes(search.toLowerCase())));
-    }
-  }, [search, addedContacts]);*/  
+  const filteredContacts = showContacts.filter(contact => contact.name.toLowerCase().includes(search.toLowerCase())); 
 
   return (
     <div>
